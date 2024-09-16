@@ -27,25 +27,25 @@ export default {
       type: Array,
       default: () => [],
     },
+    rawTags: {
+      type: Array,
+      default: () => [],
+    }
   },
   computed: {
     tags() {
-      const tags = [...new Set([{ tag: "All", id: 1 }, ...this.todos.map(todo => todo.tag)])];
-      let uniqueIds = new Set([]);
-      return tags.filter(tag => {
-        if (uniqueIds.has(tag.id)) {
-          return false;
-        }
-        uniqueIds.add(tag.id);
-        return true;
-      });
+      const tagsIds = new Set([1, ...this.todos.map(todo => todo.tagId)]);
+      if (!tagsIds.has(this.currentTagId)) {
+        this.currentTagId = 1;
+      }
+      return this.rawTags.filter(tag => tagsIds.has(tag.id));
     },
 
     shownTodos() {
       if (this.currentTagId === 1) {
         return this.todos;
       }
-      return this.todos.filter(todo => todo.tag.id === this.currentTagId);
+      return this.todos.filter(todo => todo.tagId === this.currentTagId);
     }
   }
 }

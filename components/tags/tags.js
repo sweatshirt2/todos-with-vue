@@ -18,15 +18,11 @@ export default {
       default: () => [],
     },
     currentTagId: {
-      type: {
-        tag: String,
-        id: Number,
-      },
-      default: () => {
-        return { tag: "All", id: 1, };
-      },
+      type: Number,
+      default: 1,
     },
   },
   computed: {
+
   },
 }
